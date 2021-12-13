@@ -1,4 +1,5 @@
-#First function, plot species traits
+#' @importFrom rlang .data
+
 visualize_traits<-function(data, trait1, trait2, taxacol){
   if(is.na(trait1)){
     print("Need an input for at least one trait!")

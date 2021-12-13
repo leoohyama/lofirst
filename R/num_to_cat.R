@@ -1,9 +1,12 @@
 #new function idea, making a numeric into categorical factors! Binning data
 
-df<-datasets::iris
-
 num_to_cat<-function(data , num, cat_name, cat_no, labels){
   if(is.na(labels)){
+
+    if (!requireNamespace("dplyr", quietly = TRUE)) {
+      utils::install.packages("dplyr")
+    }
+
     #if labels are NA use generic labels
 
     #range of numbers divided by specified number of categories
@@ -31,7 +34,7 @@ num_to_cat<-function(data , num, cat_name, cat_no, labels){
       #if the first level
         data$cat_name[data[[num]] < combinations[i,1]]<-combinations[i,2]
       }
-      else if(i == tail(1:nrow(combinations), n =1)){
+      else if(i == utils::tail(1:nrow(combinations), n =1)){
         #if last number
         data$cat_name[data[[num]] > combinations[i-1,1]]<-combinations[i,2]
 
@@ -76,7 +79,7 @@ num_to_cat<-function(data , num, cat_name, cat_no, labels){
         #if the first level
         data$cat_name[data[[num]] < combinations[i,1]]<-combinations[i,2]
       }
-      else if(i == tail(1:nrow(combinations), n =1)){
+      else if(i == utils::tail(1:nrow(combinations), n =1)){
         #if last number
         data$cat_name[data[[num]] > combinations[i-1,1]]<-combinations[i,2]
 
@@ -94,7 +97,4 @@ num_to_cat<-function(data , num, cat_name, cat_no, labels){
     print("Number of categories and number of labels are not the same!")
   }
 }
-num_to_cat(data = df, num = "Petal.Length",
-       cat_name = "NewCategories",
-       cat_no = 4,
-       labels = c( "c", "d", "f", "r"))
+
