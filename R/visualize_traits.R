@@ -1,4 +1,4 @@
-#' @importFrom rlang .data
+#' @importFrom ggplot2 ggplot aes geom_boxplot geom_point coord_flip
 
 visualize_traits<-function(data, trait1, trait2, taxacol){
   if(is.na(trait1)){
@@ -9,8 +9,8 @@ visualize_traits<-function(data, trait1, trait2, taxacol){
          taxacol %in% colnames(data)){
         #passed test plot single trait by species
         ggplot2::ggplot(data = data) +
-          ggplot2::geom_boxplot(ggplot2::aes(x = .data[[taxacol]],
-                                             y = .data[[trait1]]))
+          ggplot2::geom_boxplot(ggplot2::aes(x = {{ taxacol }},
+                                             y = {{ trait1 }}))
       }else{
         print("trait1 or taxa does not match the column names of the data")
       }
@@ -22,9 +22,9 @@ visualize_traits<-function(data, trait1, trait2, taxacol){
         #passed test plot two traits by species
 
         ggplot2::ggplot(data = data) +
-          ggplot2::geom_point(ggplot2::aes(x = .data[[trait1]],
-                                             y = .data[[trait2]],
-                                           color = .data[[taxacol]])
+          ggplot2::geom_point(ggplot2::aes(x = {{ trait1 }},
+                                             y = {{ trait2 }},
+                                           color = {{ taxacol }})
                                 )
 
       }else{
